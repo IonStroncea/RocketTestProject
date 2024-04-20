@@ -5,7 +5,9 @@
   "projects": {
     "Rocket": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {"@schematics/angular:component": {
+        "displayBlock": false
+     }},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
