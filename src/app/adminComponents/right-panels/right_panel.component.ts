@@ -13,9 +13,9 @@ import { AddPersonComponent } from "./add-persion.component";
     <h2>Meetings</h2>\
     <div class="meetings-panel">\
         <div class="person-panel">\
-            <person/>\
-            <person/>\
-            <person/>\
+            <person [order]=0/>\
+            <person [order]=1/>\
+            <person [order]=2/>\
             <add-person/>\
     </div>\
     </div>\
