@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { LoginService } from "../loginService";
+import { Router } from "@angular/router";
 
 @Component({
     selector:'login-form',
@@ -13,20 +15,22 @@ import { Component } from "@angular/core";
     <h1 class="SignInText">Sign in</h1>\
     <form>\
     <div class="field">\
-    <div class="field-label">Email address*</div>\
-    <input type="text" name="email" class="filed-input"/>\
+    <div class="field-label" style="color:{{emailColor}}">Email address*</div>\
+    <input type="text" (focus)="emailFocus()" (blur)="emailBlur()" (keyup)="onEmailChange($event)" name="email" value="demo@example.com" class="filed-input"/>\
     </div>\
+    <span class="ErrorMessage">{{emailError}}</span>\
     <br/>\
     <div class="field">\
-    <div class="field-label">Password*</div>\
-    <input type="password" name="password" class="filed-input"/>\
+    <div class="field-label" style="color:{{passwordColor}}">Password*</div>\
+    <input type="password" (focus)="passwordFocus()" (blur)="passwordBlur()" (keyup)="onPasswordChange($event)" name="password" value="123456789123456789" class="filed-input"/>\
     </div>\
+    <span class="ErrorMessage">{{passwordError}}</span>\
     <br/>\
     <div class="forgot-password">\
         <a href="" class="forgot-password-ref">Forgot password?</a>\
     </div>\
     <br/>\
-    <div class="sign-button">\
+    <div class="sign-button" (click)="submitForm()">\
         Sign in\
     </div>\
     <br/>\
@@ -37,7 +41,8 @@ import { Component } from "@angular/core";
     </div>\
 </div>',
     standalone : true,
-    styles :'.form-parent{width:100%}\
+    styles :'.ErrorMessage{color: rgb(255, 61, 0);    font-family: Nunito, sans-serif; font-weight: 400; font-size: 0.75rem; line-height: 1.66;   letter-spacing: 0px;   text-align: left; margin: 3px 14px 0px;}\
+    .form-parent{width:100%}\
     .toolbar{height:104px; text-align:right;}\
     path{color : rgb(69, 90, 100);}\
     .tool-icon{width:24px;height:24px;margin-right:40px;margin-left: auto;margin-top:40px;color : rgb(69, 90, 100);}\
@@ -46,17 +51,92 @@ import { Component } from "@angular/core";
     .SignInText{color : rgb(69, 90, 100);text-size-adjust: 100%;  font-size: 1.5rem;}\
     form{width:396px; margin:auto; text-align:left;}\
     .field{background-color: rgba(0, 0, 0, 0.06);padding:10px; border-radius: 16px;}\
+    .filed-input:focus + .field-label{color:rgb(41,98,255)}\
     .field-label{text-align:left;color: rgb(96, 125, 139);font-family: Nunito, sans-serif;font-weight: 400; font-size: 0.8rem; line-height: 1.4375em; letter-spacing: 0px;}\
     .filed-input{width:100%; border:0; background-color: rgba(0, 0, 0, 0);}\
     input{outline: none;font-size: 1rem;color : rgb(69, 90, 100)}\
     .forgot-password{text-align:right;}\
     .forgot-password-ref:not(:hover){text-decoration:none;}\
     .forgot-password-ref{color: rgb(41, 98, 255);}\
-    .sign-button{width:100%; text-align:center;background-color:rgb(41, 98, 255);color:white;border-radius: 16px; padding:17px 0px 17px 0px;}\
+    .sign-button{width:100%; text-align:center;background-color:rgb(41, 98, 255);color:white;border-radius: 16px; padding:17px 0px 17px 0px;cursor: pointer;}\
+    .sign-button:hover{background-color:rgb(0, 68, 255)}\
     .no-account{background-color:white; width:100%; text-align:center;border-radius: 16px; padding:17px 0px 17px 0px;}\
     .no-account:hover{background-color:rgba(41, 98, 255, 0.04);}\
     .no-account-ref{text-decoration:none;color: rgb(41, 98, 255);font-family: Nunito, sans-serif;font-size: 0.875rem;font-weight: 700;}'
 })
 export class LoginFormComponent{
+    emailColor:string="rgb(69, 90, 100);"
+    passwordColor:string="rgb(69, 90, 100);"
+    emailError:string="";
+    passwordError:string="";
+    email:string="demo@example.com";
+    password:string="123456789123456789";
+    passwordFocus(){
+        this.passwordColor = "rgb(41,98,255);";
+    }
+    passwordBlur(){
+        this.passwordColor = "rgb(69, 90, 100);";
+    }
+    emailFocus(){
+        this.emailColor = "rgb(41,98,255);";
+    }
+    emailBlur(){
+        this.emailColor = "rgb(69, 90, 100);";
+    }
+    submitForm(){
+        if(this.verifyEmail() && this,this.verifyPassword()){
+        this.loginService.loggIn({email : this.email, password : this.password});
+        this.router.navigate(['admin']);
+        }
+    }
 
+    verifyEmail(){
+        if(this.email.length == 0){
+              this.emailError = "Required";  
+              this.emailColor = "rgb(255, 61, 0);";
+              return false;
+        }
+        else if(this.password.toLowerCase()
+            .match(
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            )){
+            this.emailError = "Invalid email address"; 
+            this.emailColor = "rgb(255, 61, 0);";
+            return false; 
+        }
+        else{
+            this.emailColor = "rgb(69, 90, 100);";
+            this.emailError = ""; 
+            return true; 
+        }
+    }
+
+    verifyPassword(){
+        if(this.password.length == 0){
+              this.passwordError = "Required";  
+              this.passwordColor = "rgb(255, 61, 0);";
+              return false;
+        }
+        else if(this.password.length < 8){
+            this.passwordError = "Must be 8 characters or more"; 
+            this.passwordColor = "rgb(255, 61, 0);";
+            return false; 
+        }
+        else{
+            this.passwordColor = "rgb(69, 90, 100);";
+            this.passwordError = ""; 
+            return true; 
+        }
+    }
+
+    onPasswordChange(event: any) { 
+        this.password = event.target.value;
+        this.verifyPassword();
+      }
+
+    onEmailChange(event: any) { 
+        this.email = event.target.value;
+        this.verifyEmail();
+      }
+    constructor(private loginService:LoginService, private router: Router){}
 }

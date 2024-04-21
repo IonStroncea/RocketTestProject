@@ -10,7 +10,7 @@ import { RandomNumberService } from "../../randomNumberService";
         <div class="h6">{{ value }}</div>\
         <div class="p">Likes</div>\
     </div>\
-    <svg class="up-sign" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="ArrowDropUpIcon"><path d="m7 14 5-5 5 5z"></path></svg>\
+    <svg class="up-sign" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="ArrowDropUpIcon"><path class="path-green" d="m7 14 5-5 5 5z"></path></svg>\
     </div>',
     styles:'.panel{width:100%; background-color:white; border-radius:16px; margin-bottom:15px; display:flex;}\
     .icon{width:40px;height:40px; background-color:rgb(41, 98, 255); border-radius:50%;display: flex;  align-items: center;  justify-content: center; margin:25px 0 25px 25px}\
@@ -18,7 +18,10 @@ import { RandomNumberService } from "../../randomNumberService";
     .info{ margin:25px 0 25px 25px;}\
     .h6{font-family: Nunito, sans-serif; font-weight: 700;  font-size: 1rem;color: rgb(69, 90, 100);}\
     .p{font-family: Nunito, sans-serif;font-weight: 400; font-size: 0.875rem; color: rgb(96, 125, 139); margin-top:5px}\
-    .up-sign{width:24px; height:24px; margin-left:auto; margin-right:25px; margin-top:35px;}'
+    .up-sign{fill:rgb(0,230,118);width:24px; height:24px; margin-left:auto; margin-right:25px; margin-top:35px;}\
+    .icon svg path{fill:white}\
+    .path-green{fill:rgb(0,230,118)}\
+    '
 })
 export class LikesComponent{
     value:string="";

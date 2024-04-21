@@ -10,7 +10,7 @@ import { RandomNumberService } from "../../randomNumberService";
         <div class="h6">{{value}}</div>\
         <div class="p">Smiles</div>\
     </div>\
-    <svg class="down-sign" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="ArrowDropDownIcon"><path d="m7 10 5 5 5-5z"></path></svg>\
+    <svg class="down-sign" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="ArrowDropDownIcon"><path class="path-red" d="m7 10 5 5 5-5z"></path></svg>\
     </div>',
     styles:'.panel{width:100%; background-color:white; border-radius:16px; margin-bottom:15px; display:flex;}\
     .icon{width:40px;height:40px; background-color:rgb(255, 196, 0); border-radius:50%;display: flex;  align-items: center;  justify-content: center; margin:25px 0 25px 25px}\
@@ -18,7 +18,10 @@ import { RandomNumberService } from "../../randomNumberService";
     .info{ margin:25px 0 25px 25px;}\
     .h6{font-family: Nunito, sans-serif; font-weight: 700;  font-size: 1rem;color: rgb(69, 90, 100);}\
     .p{font-family: Nunito, sans-serif;font-weight: 400; font-size: 0.875rem; color: rgb(96, 125, 139); margin-top:5px}\
-    .down-sign{width:24px; height:24px; margin-left:auto; margin-right:25px; margin-top:35px;}'
+    .down-sign{width:24px; height:24px; margin-left:auto; margin-right:25px; margin-top:35px;}\
+    .icon svg path{fill:white}\
+    .path-red{fill:rgb(255,61,0)}\
+    '
 })
 export class SimlesComponent{
     value:string="";

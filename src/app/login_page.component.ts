@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { LoginFormComponent } from "./loginComponents/login_form.component";
+import { LoginService } from "./loginService";
 
 @Component({
     selector : 'login-page',
@@ -11,5 +12,4 @@ import { LoginFormComponent } from "./loginComponents/login_form.component";
     .right{flex-basis: 41.6667%; background-color:rgb(255, 255, 255); max-width:41.6667%; min-height:100%;padding:0px; margin : 0px;background-size: cover;}"
 })
 export class LoginPageComponent{
-
 }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { LoginPageComponent } from './login_page.component';
 import { AdminComponent } from './admin.component';
+import { LoginService } from './loginService';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,9 @@ import { AdminComponent } from './admin.component';
 })
 export class AppComponent {
   title = 'Rocket';
+  constructor(loginService: LoginService, router: Router) {
+    if (!loginService.isLoggedIn()) {
+      router.navigate(['login']);
+    }
+  }
 }
