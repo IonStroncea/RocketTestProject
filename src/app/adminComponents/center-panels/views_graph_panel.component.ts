@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import Chart from 'chart.js/auto';
 
 @Component({
     selector:'views-graph',
@@ -6,6 +7,11 @@ import { Component } from "@angular/core";
     template:'<div class="panel">\
         <div class="views-div">Views</div>\
         <h3>6.967.431</h3>\
+        <div class="chart-container">\
+    <div class="chart-container">\
+      <canvas  id="MyChart" >{{ chart }}</canvas>\
+    </div>\
+    </div>\
         <div class="view-dashboard">\
             <div class="icon"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1uynuqf-MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="DashboardIcon"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path></svg></div>\
         <div class="view-dashboard-text">View Dashboard</div>   \
@@ -25,7 +31,85 @@ import { Component } from "@angular/core";
     .right-sign{width:24px; height:24px;}\
     .right-sign-container{width:40px; height:40px; margin-left:auto; margin-right:25px; margin-top:25px;border-radius:50%;display:flex;  align-items: center; justify-content: center;}\
     .right-sign-container:hover{background-color:rgb(211, 218, 223)}\
+    .chart-container{}\
     \
     '
 })
-export class ViewsGraphComponent{}
+export class ViewsGraphComponent{
+    public chart: any;
+    ngOnInit(): void {
+        this.createChart();
+      }
+
+    createChart(){
+  
+        this.chart = new Chart("MyChart", {
+          type: 'line', //this denotes tha type of chart,
+          options: {
+            maintainAspectRatio: true,
+            interaction:{
+                mode:"nearest",
+                intersect:false
+            },
+            plugins: {
+                tooltip:{
+                    callbacks: {
+                        label : function(context){
+                            let label = "";
+                            label += 'fb: ';
+                            if (context.parsed.y !== null) {
+                                label +=context.parsed.y;
+                            }
+                            return label;
+                    }},
+                    position: 'nearest',
+                    enabled:true,
+                    backgroundColor: "white",
+                    cornerRadius:2,
+                    bodyColor: "rgb(41,98,255)", 
+                    displayColors:false,
+                    titleColor:"grey",
+                    titleFont:{size:15},
+                    bodyFont:{size:15}
+                },
+                legend: {
+                    display: false
+                }
+            },
+            elements: {
+                point:{
+                    radius: 1
+                }
+            },
+            scales: {
+                x:{
+                    grid:{
+                    display:false
+                }},
+                y: {
+                    display:false,
+                    ticks: {
+                        display: false
+                    },
+                    grid:{
+                        display:false
+                    }
+                }
+            }
+        },
+          data: {// values on X-Axis
+            labels: ['Jan','Feb', 'Mar', 'Avr' ], 
+           datasets: [
+              {
+                data: ['2.5','1.4', '6', '4'],
+                borderColor: 'rgb(41,98,255)',
+                borderWidth:7,
+                backgroundColor:'rgb(191,208,255)',
+                fill:true,
+                tension:0.15
+              }  
+            ]
+          }          
+        });
+      }
+}
