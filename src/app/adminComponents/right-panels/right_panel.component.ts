@@ -20,7 +20,8 @@ import { AddPersonComponent } from "./add-persion.component";
     </div>\
     </div>\
     ',
-    styles:'.panel{margin-bottom:15px}'
+    styles:'.panel{margin-bottom:15px}\
+    h2{ font-family: Nunito, sans-serif; font-weight: 800; font-size: 1.25rem;line-height: 1.235;letter-spacing: 0px; color:rgb(69,90,100)}'
 })
 export class RightPanelComponent{
 

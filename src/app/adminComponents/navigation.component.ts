@@ -1,5 +1,8 @@
 import { Component } from "@angular/core";
 import { LoginService } from "../loginService";
+import { State } from "../state.model";
+import { Store } from '@ngrx/store';
+import { selectLogInEmail } from "../user.selectors";
 
 @Component({
     selector:'navigation',
@@ -77,6 +80,7 @@ import { LoginService } from "../loginService";
     <div class="navigation-bottom">\
         <a href="">\
         <div class="navigation-bottom-item">\
+            <div class="navigation-bottom-item-content">\
             <div class="navigation-bottom-image">\
             <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1uynuqf-MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="PersonIcon"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>\
             </div>\
@@ -84,9 +88,11 @@ import { LoginService } from "../loginService";
                 <span>{{first_name}} {{last_name}}</span>\
             </div>\
         </div>\
+        </div>\
         </a>\
         <a href="">\
         <div class="navigation-bottom-item">\
+        <div class="navigation-bottom-item-content">\
             <div class="navigation-bottom-image">\
                 <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1uynuqf-MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="SettingsIcon"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"></path></svg>\
             </div>\
@@ -94,12 +100,13 @@ import { LoginService } from "../loginService";
                 <span>Settings</span>\
             </div>\
         </div>\
+        </div>\
         </a>\
     </div>\
     </div>',
     styles:'a{text-decoration:none}\
-    .navigation-container{color: rgb(69, 90, 100); padding:20px; min-height:100%;display: flex;flex-direction: column;justify-content:space-between}\
-    .icon{margin:10px}\
+    .navigation-container{color: rgb(69, 90, 100); padding:0px 20px 0px 20px; min-height:100%;display: flex;flex-direction: column;justify-content:space-between}\
+    .icon{margin:10px; margin-top:25px}\
     .navigation-list{}\
     .navigation-item-image{height:24px; width:24px; padding: 0px 20px 0 20px}\
     .navigation-item-image svg{color: rgb(69, 90, 100);}\
@@ -110,18 +117,19 @@ import { LoginService } from "../loginService";
     .navigation-item-text span{font-family: Nunito, sans-serif;font-weight: 300;font-size: 1rem;}\
     .navigation-item-text {padding-top: 5px}\
     .navigation-bottom{}\
-    .navigation-bottom-item{display:flex; color: rgb(69, 90, 100); padding:10px 0px 10px 0px; border-radius:16px}\
+    .navigation-bottom-item{color: rgb(69, 90, 100);  border-radius:16px; overflow:auto;display:flex; align-items: center; height:60px}\
     .navigation-bottom-item:hover{background-color:rgb(245,245,245)}\
     .navigation-bottom-text span{font-family: Nunito, sans-serif;font-weight: 300;font-size: 1rem;}\
     .navigation-bottom-text{padding-top: 10px}\
     .navigation-bottom-image{margin:0px 10px 0px 15px;height:40px; width:40px; background-color:rgb(236, 239, 241); border-radius:50%; display: flex; align-items: center; justify-content: center;}\
     .navigation-bottom-image svg{color: rgb(69, 90, 100);height:24px; width:24px;margin:auto;  width: 50%;  height: 50%;}\
+    .navigation-bottom-item-content{display:flex; }\
     path{fill:rgb(69, 90, 100)}'
 })
 export class NavigationComponent{
     first_name : string="";
     last_name : string="";
-    constructor(private loginService:LoginService){
+    /*constructor(private loginService:LoginService){
         let email = loginService.getLoggInData().email;
         let names = email?.split("@")[0];
         this.first_name = names?.split(".")[0] ?? "";
@@ -129,6 +137,18 @@ export class NavigationComponent{
 
         this.first_name = this.titleCaseWord(this.first_name);
         this.last_name = this.titleCaseWord(this.last_name);
+    }*/
+
+    constructor(private store:Store<State>){
+        store.select(selectLogInEmail).subscribe(email =>
+        {
+            let names = email?.split("@")[0];
+            this.first_name = names?.split(".")[0];
+            this. last_name = names?.split(".")[1];
+
+            this.first_name = this.titleCaseWord(this.first_name) ??"";
+            this.last_name = this.titleCaseWord(this.last_name)??"";
+    });
     }
 
     private titleCaseWord(word: string) {

@@ -3,6 +3,10 @@ import { Router, RouterOutlet } from '@angular/router';
 import { LoginPageComponent } from './login_page.component';
 import { AdminComponent } from './admin.component';
 import { LoginService } from './loginService';
+import { State } from "./state.model";
+import { Store } from '@ngrx/store';
+import { selectLogInEmail, selectLoginState } from './user.selectors';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +17,23 @@ import { LoginService } from './loginService';
 })
 export class AppComponent {
   title = 'Rocket';
-  constructor(loginService: LoginService, router: Router) {
+  /*constructor(loginService: LoginService, router: Router) {
     if (!loginService.isLoggedIn()) {
       router.navigate(['login']);
     }
+  }
+  */
+  isLoggedIn$:Observable<boolean> = this.store.select(selectLoginState);
+
+  goToLogin(isLoggedIn  :boolean){
+    if(!isLoggedIn)      {
+        this.router.navigate(['login']);
+      }
+  }
+
+  constructor(private store:Store<State>,private router: Router) {
+    this.isLoggedIn$.subscribe(data =>{
+      this.goToLogin(data);
+    })
   }
 }

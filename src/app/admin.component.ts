@@ -5,6 +5,9 @@ import { CenterPanelComponent } from "./adminComponents/center-panels/center_pan
 import { RightPanelComponent } from "./adminComponents/right-panels/right_panel.component";
 import { Router } from "@angular/router";
 import { LoginService } from "./loginService";
+import { State } from "./state.model";
+import { Store } from '@ngrx/store';
+import { Logout } from "./user.actions";
 
 @Component({
     selector:'admin-page',
@@ -36,6 +39,7 @@ import { LoginService } from "./loginService";
     .href_hover:hover{background-color:rgb(226, 230, 233)}\
     .container{display:flex; min-height:100%}\
     .left{flex-basis: 15%; background-repeat: no-repeat; background-color:rgb(255, 255, 255);min-height:100%;}\
+    .right{min-height:100%}\
     .top-panel{width:100%; min-height:104px;}\
     .working-area{width:100%;}\
     .logout-icon{width:48px; height:48px; margin-right:0; margin-left:auto; margin-top:32px}\
@@ -49,9 +53,12 @@ import { LoginService } from "./loginService";
     "
 })
 export class AdminComponent{
-    constructor(private routes:Router, private loginService:LoginService){}
+    //constructor(private routes:Router, private loginService:LoginService){}
+
+    constructor(private store:Store<State>,private routes:Router,){}
 
     logOut(){
-        this.loginService.loggOut();
+       // this.loginService.loggOut();
+       this.store.dispatch(Logout())
     }
 }

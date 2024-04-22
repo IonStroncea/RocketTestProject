@@ -1,6 +1,9 @@
 import { Component } from "@angular/core";
 import { LoginService } from "../loginService";
 import { Router } from "@angular/router";
+import { State } from "../state.model";
+import { Store } from '@ngrx/store';
+import { Login } from "../user.actions";
 
 @Component({
     selector:'login-form',
@@ -41,14 +44,19 @@ import { Router } from "@angular/router";
     </div>\
 </div>',
     standalone : true,
-    styles :'.ErrorMessage{color: rgb(255, 61, 0);    font-family: Nunito, sans-serif; font-weight: 400; font-size: 0.75rem; line-height: 1.66;   letter-spacing: 0px;   text-align: left; margin: 3px 14px 0px;}\
+    styles :'.form-parent{font-family: Nunito, sans-serif;}\
+    .ErrorMessage{color: rgb(255, 61, 0); font-family: Nunito, sans-serif; font-weight: 400; font-size: 0.75rem; line-height: 1.66;   letter-spacing: 0px;   text-align: left; margin: 3px 14px 0px;}\
     .form-parent{width:100%}\
     .toolbar{height:104px; text-align:right;}\
     path{color : rgb(69, 90, 100);}\
-    .tool-icon{width:24px;height:24px;margin-right:40px;margin-left: auto;margin-top:40px;color : rgb(69, 90, 100);}\
+    .tool-icon svg{width:24px;height:24px;}\
+    path{fill:rgb(112,112,112)}\
+    .tool-icon{display:flex;align-items: center;  justify-content: center; width:60px;height:60px;margin-right:20px;margin-left: auto;margin-top:20px;color : rgb(69, 90, 100); border-radius:50%}\
+    .tool-icon:hover{background-color:rgb(245,245,245)}\
     .form-container{width:500px; margin:auto; text-align: center;margin-top:40px}\
     .svg{color : rgb(69, 90, 100);margin-inline:auto;}\
     .SignInText{color : rgb(69, 90, 100);text-size-adjust: 100%;  font-size: 1.5rem;}\
+    .SignInText{ font-family: Nunito, sans-serif;font-weight: 800;font-size: 1.125rem;line-height: 1.334;letter-spacing: 0px;}\
     form{width:396px; margin:auto; text-align:left;}\
     .field{background-color: rgba(0, 0, 0, 0.06);padding:10px; border-radius: 16px;}\
     .filed-input:focus + .field-label{color:rgb(41,98,255)}\
@@ -85,7 +93,8 @@ export class LoginFormComponent{
     }
     submitForm(){
         if(this.verifyEmail() && this,this.verifyPassword()){
-        this.loginService.loggIn({email : this.email, password : this.password});
+        //this.loginService.loggIn({email : this.email, password : this.password});
+        this.store.dispatch(Login({user:{loggedIn:true, email:this.email, password:this.password}}))
         this.router.navigate(['admin']);
         }
     }
@@ -138,5 +147,6 @@ export class LoginFormComponent{
         this.email = event.target.value;
         this.verifyEmail();
       }
-    constructor(private loginService:LoginService, private router: Router){}
+    //constructor(private loginService:LoginService, private router: Router){}
+    constructor(private store:Store<State>, private router: Router){}
 }
