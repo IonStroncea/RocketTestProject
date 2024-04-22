@@ -1,7 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { State } from "./state.model";
-import { Login, Logout, UserActionTypes, UserActions } from "./user.actions";
-import { User } from "./user.model";
+import { Login, Logout} from "./user.actions";
 
 const initialState: State = {
   user :{
@@ -27,17 +26,3 @@ export const UserReducer = createReducer(
   }}
 ),
 );
-
-export function UserReducer1(
-   state: State = initialState,
-   action: UserActions
-) {
-   switch (action.type) {
-     case UserActionTypes.LOGIN:
-       return {...state,user:{loggedIn:true, email:action.payload.email, password:action.payload.password} };
-       case UserActionTypes.LOGOUT:
-       return {...state, user:{loggedIn:false, email:"", password:""}}
-     default:
-       return state;
-   }
-}

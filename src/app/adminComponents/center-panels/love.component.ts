@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { RandomNumberService } from "../../randomNumberService";
+import { RandomService } from "../../randomService";
 
 @Component({
     selector:"loves",
@@ -25,7 +25,7 @@ import { RandomNumberService } from "../../randomNumberService";
 })
 export class LovesComponent{
     value:string="";
-    constructor(private service: RandomNumberService) { 
+    constructor(private service: RandomService) { 
     }
     ngOnInit() {
         this.service.value$.subscribe((value) => {

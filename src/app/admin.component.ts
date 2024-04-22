@@ -4,7 +4,6 @@ import { LeftColumnComponent } from "./adminComponents/left-panels/left_column.c
 import { CenterPanelComponent } from "./adminComponents/center-panels/center_panel.component";
 import { RightPanelComponent } from "./adminComponents/right-panels/right_panel.component";
 import { Router } from "@angular/router";
-import { LoginService } from "./loginService";
 import { State } from "./state.model";
 import { Store } from '@ngrx/store';
 import { Logout } from "./user.actions";
@@ -19,7 +18,7 @@ import { Logout } from "./user.actions";
             <div class="logout-icon">\
                 <div class="href_hover">\
                 <a href="" (click)="logOut()">\
-            <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1uynuqf-MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="NotificationsIcon"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path></svg>\
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 384.971 384.971" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g id="Sign_Out"> <path d="M180.455,360.91H24.061V24.061h156.394c6.641,0,12.03-5.39,12.03-12.03s-5.39-12.03-12.03-12.03H12.03 C5.39,0.001,0,5.39,0,12.031V372.94c0,6.641,5.39,12.03,12.03,12.03h168.424c6.641,0,12.03-5.39,12.03-12.03 C192.485,366.299,187.095,360.91,180.455,360.91z"></path> <path d="M381.481,184.088l-83.009-84.2c-4.704-4.752-12.319-4.74-17.011,0c-4.704,4.74-4.704,12.439,0,17.179l62.558,63.46H96.279 c-6.641,0-12.03,5.438-12.03,12.151c0,6.713,5.39,12.151,12.03,12.151h247.74l-62.558,63.46c-4.704,4.752-4.704,12.439,0,17.179 c4.704,4.752,12.319,4.752,17.011,0l82.997-84.2C386.113,196.588,386.161,188.756,381.481,184.088z"></path> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> <g> </g> </g> </g></svg>\
 </a></div>\</div>\
         </div>\
         <div class="panels-area">\
@@ -40,7 +39,7 @@ import { Logout } from "./user.actions";
     .container{display:flex; min-height:100%}\
     .left{flex-basis: 15%; background-repeat: no-repeat; background-color:rgb(255, 255, 255);min-height:100%;}\
     .right{min-height:100%}\
-    .top-panel{width:100%; min-height:104px;}\
+    .top-panel{width:100%; min-height:90px;}\
     .working-area{width:100%;}\
     .logout-icon{width:48px; height:48px; margin-right:0; margin-left:auto; margin-top:32px}\
     .logout-icon svg{width:24px; height:24px;}\

@@ -6,7 +6,7 @@ import { Person } from "./person";
 @Injectable({
     providedIn: 'root'
   })
-export class RandomNumberService{
+export class RandomService{
     private messageSubject1 = new BehaviorSubject<{likes:string,love:string, smiles:string, views:number, followers:number, income:number, people:Person[]}>({likes:"50", love:"56", smiles:"89", views:0, followers:0, income:0, people:[new Person(),new Person(),new Person()]});
     value$=this.messageSubject1.asObservable();
 

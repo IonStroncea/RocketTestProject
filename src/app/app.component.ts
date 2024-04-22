@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { LoginPageComponent } from './login_page.component';
 import { AdminComponent } from './admin.component';
-import { LoginService } from './loginService';
 import { State } from "./state.model";
 import { Store } from '@ngrx/store';
-import { selectLogInEmail, selectLoginState } from './user.selectors';
+import { selectLoginState } from './user.selectors';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({

@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { LoginService } from "../loginService";
 import { State } from "../state.model";
 import { Store } from '@ngrx/store';
 import { selectLogInEmail } from "../user.selectors";

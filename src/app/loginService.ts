@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+//Service to save logged user data. Saves in sesssion. Now not used. NGrx used instead
 @Injectable({
   providedIn: 'root'
 })

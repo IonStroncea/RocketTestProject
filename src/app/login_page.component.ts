@@ -1,7 +1,5 @@
 import { Component } from "@angular/core";
 import { LoginFormComponent } from "./loginComponents/login_form.component";
-import { LoginService } from "./loginService";
-
 @Component({
     selector : 'login-page',
     standalone : true,
