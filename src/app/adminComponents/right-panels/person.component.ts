@@ -1,9 +1,11 @@
 import { Component, Input } from "@angular/core";
 import { RandomService } from "../../randomService";
+import { PersonService } from "../../person.service";
 
 @Component({
     selector:"person",
     standalone:true,
+    providers:[PersonService],
     template:'<div class=panel>\
         <div class="icon"><img alt="Emmy Anderson avatar" src="{{avatar}}" class="MuiAvatar-img css-1pqm26d-MuiAvatar-img"></div>\
     <div class="info">\
@@ -30,15 +32,16 @@ export class PersonComponent{
  last_name:string="";
  avatar:string="";
 
- constructor(private service: RandomService) { 
+ constructor(private service: PersonService) { 
  }
  ngOnInit() {
      this.service.value$.subscribe((value) => {
-       let person = value.people[this.order];
+       let person = value.person;
 
        this.first_name = person.first_name;
        this.last_name = person.last_name;
        this.avatar = person.avatar;
      });
+     this.service.getPerson();
  }
 }
